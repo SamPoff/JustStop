@@ -14,7 +14,7 @@ public class Compiler {
 
 	public static void main( String[] args ) throws Exception {
 
-		File file = new File("/Users/sp31485/eclipse-workspace/Compiler/lib/test.c");
+		File file = new File("/Users/sp31485/git/anotherone/Compiler/lib/test.c");
 		FileInputStream fis = null;
 
 		try {
@@ -30,10 +30,11 @@ public class Compiler {
 //			System.out.println("\n");
 			CommonTokenStream tokens = new CommonTokenStream( lexer );
 			CParser parser = new CParser( tokens );
-			CParser.CompilationUnitContext tree = parser.compilationUnit();
+			CParser.CompilationUnitContext tree = parser.compilationUnit(  );
 			
 			MyListener extractor = new MyListener(  );
-			ParseTreeWalker.DEFAULT.walk( extractor, tree );
+			ParseTreeWalker.DEFAULT.walk( extractor, tree ); 
+					
 			
 		} catch (IOException e) {
 			e.printStackTrace();

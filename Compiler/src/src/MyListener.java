@@ -377,7 +377,9 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterAssignmentExpression(AssignmentExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.println( "Ass " + ctx.getText() );
+		System.out.println( "Ass " + ctx.getChild(0).getText() );
+		System.out.println( "Ass " + ctx.getParent().getText() );
 		
 	}
 
@@ -401,8 +403,9 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterExpression(ExpressionContext ctx) {
-		// TODO Auto-generated method stub
-		
+		System.out.println( "Exx " + ctx.getText() );
+		System.out.println( "Exx " + ctx.getChild(0).getText() );
+		System.out.println( "Exx " + ctx.getParent().getText() );
 	}
 
 	@Override
@@ -437,8 +440,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterDeclarationSpecifiers(DeclarationSpecifiersContext ctx) {
-		// TODO Auto-generated method stub
-		
+//		System.out.println(ctx.getText());
 	}
 
 	@Override
@@ -473,7 +475,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterInitDeclaratorList(InitDeclaratorListContext ctx) {
-		// TODO Auto-generated method stub
+//		System.out.print( ctx.toString() );
 		
 	}
 
@@ -509,12 +511,12 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterTypeSpecifier(TypeSpecifierContext ctx) {
-		System.out.print("Saw " + ctx.getText());
+//		System.out.print("LOAD ");
 	}
 
 	@Override
 	public void exitTypeSpecifier(TypeSpecifierContext ctx) {
-		System.out.println("\n");
+		
 	}
 
 	@Override
