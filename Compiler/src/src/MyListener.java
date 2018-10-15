@@ -454,25 +454,37 @@ public class MyListener implements CListener {
 		// can't be done because it's referencing another variable
 		// then it replaces it with the value of that variable. 
 		List<String> arrayVersion = new ArrayList<String>();
-		for( String variableName : keys ) {
-			if( val.contains( variableName ) ) {
-				System.out.println("valln = " + val.length() + " varN.l = " + variableName.length());
-				int h = 0;
-				for( int i = 0; i < val.length() - variableName.length() ; i++ ) {
-					int j = i + variableName.length() ; 
-                    if( val.substring( i, j ).equals( variableName ) ) {
-                    	arrayVersion.add( val.substring(i, j) );
-                    	i += j - 1;
-                    	j += j - i;
-                    }
-                    else {
-                    	arrayVersion.add( val.substring( i, i + 1 ) );
-                    	j++;
-                    }
-                    h++;
-				}System.out.println("h = " + h);
-			}
+		int numberOfDependencies = keys.size();
+		String depArray[] = new String[ numberOfDependencies ];
+		int index = 0;
+		for( String s : keys ) {
+			depArray[ index ] = s;
+			index++;
 		}
+		int depStartIndex[] = new int[ numberOfDependencies ];
+		int depEndIndex[]   = new int[ numberOfDependencies ];
+		// Find start and end points of each dependency. 
+		for( int i = 0; i < numberOfDependencies; i++ ) {
+			
+		}
+		
+		// TODO: Make an array that has all the correct variables, swap
+		// values for the dependencies, then take care of order of operations.
+		int h = 0;
+		for( int i = 0; i < val.length() - variableName.length() ; i++ ) {
+			int j = i + variableName.length() ; 
+            if( val.substring( i, j ).equals( variableName ) ) {
+            	arrayVersion.add( val.substring(i, j) );
+            	i += j - 1;
+            	j += j - i;
+            }
+            else {
+            	arrayVersion.add( val.substring( i, i + 1 ) );
+            	j++;
+            }
+            h++;
+		}System.out.println("h = " + h);
+
 		System.out.println("\n");
 		for( String s : arrayVersion ) System.out.println("Array " + s );
 		
