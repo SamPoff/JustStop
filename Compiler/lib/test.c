@@ -1,8 +1,8 @@
 
     
-int a = 5;
+int a1 = 5;
 int b = 6;
-int c = a + b;
+int c = a1 + b * 3 / 6 + 2 - 1;
    
     
 

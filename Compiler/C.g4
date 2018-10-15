@@ -32,99 +32,7 @@ options
 	language = Java;   
 }
 
-//program:
-//   (
-//   	   primaryExpression
-//   	|  genericSelection
-//   	|  genericAssocList
-//   	|  genericAssociation
-//   	|  postfixExpression
-//   	|  argumentExpressionList
-//   	|  unaryExpression
-//   	|  unaryOperator
-//   	|  castExpression
-//   	|  multiplicativeExpression
-//   	|  additiveExpression
-//   	|  shiftExpression
-//   	|  relationalExpression
-//   	|  equalityExpression
-//   	|  andExpression
-//   	|  exclusiveOrExpression
-//   	|  inclusiveOrExpression
-//   	|  logicalAndExpression
-//   	|  logicalOrExpression
-//   	|  conditionalExpression
-//   	|  assignmentExpression
-//   	|  assignmentOperator
-////   	|  expression
-////   	|  constantExpression
-////    |  declaration
-////    |  declarationSpecifiers
-////    |  declarationSpecifiers2 
-////    |  declarationSpecifier
-////    |  initDeclaratorList
-////    |  initDeclarator
-////    |  storageClassSpecifier
-////    |  typeSpecifier
-////    |  structOrUnionSpecifier
-////    |  structOrUnion
-////    |  structDeclarationList
-////    |  structDeclaration
-////    |  specifierQualifierList
-////    |  structDeclaratorList
-////    |  structDeclarator
-////    |  enumSpecifier
-////    |  enumeratorList
-////    |  enumerator
-////    |  enumerationConstant
-////    |  atomicTypeSpecifier
-////    |  typeQualifier
-////    |  functionSpecifier
-////    |  alignmentSpecifier
-////    |  declarator
-////    |  directDeclarator
-//    |  gccDeclaratorExtension
-//    |  gccAttributeSpecifier
-////    |  gccAttributeList
-////    |  gccAttribute
-////    |  nestedParenthesesBlock
-////    |  pointer
-//    |  typeQualifierList
-//    |  parameterTypeList
-//    |  parameterList
-//    |  parameterDeclaration
-//    |  identifierList
-//    |  typeName
-////    |  abstractDeclarator
-//    |  directAbstractDeclarator
-//    |  typedefName
-//    |  initializer
-//    |  initializerList
-//    |  designation
-//    |  designatorList
-//    |  designator
-//    |  staticAssertDeclaration
-//    |  statement
-//    |  labeledStatement
-//    |  compoundStatement
-//    |  blockItemList
-//    |  blockItem
-//    |  expressionStatement
-//    |  selectionStatement
-//    |  iterationStatement
-//    |  forCondition
-//    |  forDeclaration
-//    |  forExpression
-//    |  jumpStatement
-//    |  compilationUnit
-//    |  translationUnit
-//    |  externalDeclaration
-//    |  functionDefinition
-//    |  declarationList
-//   )*
-//   ;
-
-primaryExpression //
+primaryExpression
     :   Identifier
     |   Constant
     |   StringLiteral+
@@ -135,21 +43,21 @@ primaryExpression //
     |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
     ;
 
-genericSelection //
+genericSelection
     :   '_Generic' '(' assignmentExpression ',' genericAssocList ')'
     ;
 
-genericAssocList //
+genericAssocList
     :   genericAssociation
     |   genericAssocList ',' genericAssociation
     ;
 
-genericAssociation //
+genericAssociation
     :   typeName ':' assignmentExpression
     |   'default' ':' assignmentExpression
     ;
 
-postfixExpression //
+postfixExpression
     :   primaryExpression
     |   postfixExpression '[' expression ']'
     |   postfixExpression '(' argumentExpressionList? ')'
@@ -163,12 +71,12 @@ postfixExpression //
     |   '__extension__' '(' typeName ')' '{' initializerList ',' '}'
     ;
 
-argumentExpressionList //
+argumentExpressionList
     :   assignmentExpression
     |   argumentExpressionList ',' assignmentExpression
     ;
 
-unaryExpression //
+unaryExpression
     :   postfixExpression
     |   '++' unaryExpression
     |   '--' unaryExpression
@@ -179,37 +87,37 @@ unaryExpression //
     |   '&&' Identifier // GCC extension address of label
     ;
 
-unaryOperator //
+unaryOperator
     :   '&' | '*' | '+' | '-' | '~' | '!'
     ;
 
-castExpression //
+castExpression
     :   '(' typeName ')' castExpression
     |   '__extension__' '(' typeName ')' castExpression
     |   unaryExpression
     |   DigitSequence // for
     ;
 
-multiplicativeExpression //
+multiplicativeExpression
     :   castExpression
     |   multiplicativeExpression '*' castExpression
     |   multiplicativeExpression '/' castExpression
     |   multiplicativeExpression '%' castExpression
     ;
 
-additiveExpression //
+additiveExpression
     :   multiplicativeExpression
     |   additiveExpression '+' multiplicativeExpression
     |   additiveExpression '-' multiplicativeExpression
     ;
 
-shiftExpression //
+shiftExpression
     :   additiveExpression
     |   shiftExpression '<<' additiveExpression
     |   shiftExpression '>>' additiveExpression
     ;
 
-relationalExpression //
+relationalExpression
     :   shiftExpression
     |   relationalExpression '<' shiftExpression
     |   relationalExpression '>' shiftExpression
@@ -217,75 +125,75 @@ relationalExpression //
     |   relationalExpression '>=' shiftExpression
     ;
 
-equalityExpression //
+equalityExpression
     :   relationalExpression
     |   equalityExpression '==' relationalExpression
     |   equalityExpression '!=' relationalExpression
     ;
 
-andExpression //
+andExpression
     :   equalityExpression
     |   andExpression '&' equalityExpression
     ;
 
-exclusiveOrExpression //
+exclusiveOrExpression
     :   andExpression
     |   exclusiveOrExpression '^' andExpression
     ;
 
-inclusiveOrExpression //
+inclusiveOrExpression
     :   exclusiveOrExpression
     |   inclusiveOrExpression '|' exclusiveOrExpression
     ;
 
-logicalAndExpression //
+logicalAndExpression
     :   inclusiveOrExpression
     |   logicalAndExpression '&&' inclusiveOrExpression
     ;
 
-logicalOrExpression //
+logicalOrExpression
     :   logicalAndExpression
     |   logicalOrExpression '||' logicalAndExpression
     ;
 
-conditionalExpression //
+conditionalExpression
     :   logicalOrExpression ('?' expression ':' conditionalExpression)?
     ;
 
-assignmentExpression //
+assignmentExpression
     :   conditionalExpression
     |   unaryExpression assignmentOperator assignmentExpression
     |   DigitSequence // for
     ;
 
-assignmentOperator //
+assignmentOperator
     :   '=' | '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|='
     ;
 
-expression //
+expression
     :   assignmentExpression
     |   expression ',' assignmentExpression
     ;
 
-constantExpression //
+constantExpression
     :   conditionalExpression
     ;
 
-declaration //
+declaration
     :   declarationSpecifiers initDeclaratorList ';'
-    |   declarationSpecifiers ';'
+	| 	declarationSpecifiers ';'
     |   staticAssertDeclaration
     ;
 
-declarationSpecifiers //
+declarationSpecifiers
     :   declarationSpecifier+
     ;
 
-declarationSpecifiers2 //
+declarationSpecifiers2
     :   declarationSpecifier+
     ;
 
-declarationSpecifier //
+declarationSpecifier
     :   storageClassSpecifier
     |   typeSpecifier
     |   typeQualifier
@@ -293,17 +201,17 @@ declarationSpecifier //
     |   alignmentSpecifier
     ;
 
-initDeclaratorList //
+initDeclaratorList
     :   initDeclarator
     |   initDeclaratorList ',' initDeclarator
     ;
 
-initDeclarator //
+initDeclarator
     :   declarator
     |   declarator '=' initializer
     ;
 
-storageClassSpecifier //
+storageClassSpecifier
     :   'typedef'
     |   'extern'
     |   'static'
@@ -312,7 +220,7 @@ storageClassSpecifier //
     |   'register'
     ;
 
-typeSpecifier //
+typeSpecifier
     :   ('void'
     |   'char'
     |   'short'
@@ -333,35 +241,35 @@ typeSpecifier //
     |   enumSpecifier
     |   typedefName
     |   '__typeof__' '(' constantExpression ')' // GCC extension
-//    |   typeSpecifier pointer
+    |   typeSpecifier pointer
     ;
 
-structOrUnionSpecifier //
+structOrUnionSpecifier
     :   structOrUnion Identifier? '{' structDeclarationList '}'
     |   structOrUnion Identifier
     ;
 
-structOrUnion //
+structOrUnion
     :   'struct'
     |   'union'
     ;
 
-structDeclarationList //
+structDeclarationList
     :   structDeclaration
     |   structDeclarationList structDeclaration
     ;
 
-structDeclaration //
+structDeclaration
     :   specifierQualifierList structDeclaratorList? ';'
     |   staticAssertDeclaration
     ;
 
-specifierQualifierList //
+specifierQualifierList
     :   typeSpecifier specifierQualifierList?
     |   typeQualifier specifierQualifierList?
     ;
 
-structDeclaratorList //
+structDeclaratorList
     :   structDeclarator
     |   structDeclaratorList ',' structDeclarator
     ;
@@ -417,7 +325,7 @@ alignmentSpecifier
     ;
 
 declarator
-    :   /*pointer?*/ directDeclarator gccDeclaratorExtension*
+    :   pointer? directDeclarator gccDeclaratorExtension*
     ;
 
 directDeclarator
@@ -430,7 +338,7 @@ directDeclarator
     |   directDeclarator '(' parameterTypeList ')'
     |   directDeclarator '(' identifierList? ')'
     |   Identifier ':' DigitSequence  // bit field
-//    |   '(' typeSpecifier? pointer directDeclarator ')' // function pointer like: (__cdecl *f)
+    |   '(' typeSpecifier? pointer directDeclarator ')' // function pointer like: (__cdecl *f)
     ;
 
 gccDeclaratorExtension
@@ -459,12 +367,12 @@ nestedParenthesesBlock
         )*
     ;
 
-//pointer
-//    :   '*' typeQualifierList?
-//    |   '*' typeQualifierList? pointer
-//    |   '^' typeQualifierList? // Blocks language extension
-//    |   '^' typeQualifierList? pointer // Blocks language extension
-//    ;
+pointer
+    :   '*' typeQualifierList?
+    |   '*' typeQualifierList? pointer
+    |   '^' typeQualifierList? // Blocks language extension
+    |   '^' typeQualifierList? pointer // Blocks language extension
+    ;
 
 typeQualifierList
     :   typeQualifier
@@ -483,7 +391,7 @@ parameterList
 
 parameterDeclaration
     :   declarationSpecifiers declarator
-    |   declarationSpecifiers2 /*abstractDeclarator?*/
+    |   declarationSpecifiers2 abstractDeclarator?
     ;
 
 identifierList
@@ -492,16 +400,16 @@ identifierList
     ;
 
 typeName
-    :   specifierQualifierList /*abstractDeclarator?*/
+    :   specifierQualifierList abstractDeclarator?
     ;
 
-//abstractDeclarator
-//    :   pointer
-//    |   pointer? directAbstractDeclarator gccDeclaratorExtension*
-//    ;
+abstractDeclarator
+    :   pointer
+    |   pointer? directAbstractDeclarator gccDeclaratorExtension*
+    ;
 
 directAbstractDeclarator
-    :   /*'(' abstractDeclarator ')' gccDeclaratorExtension**/
+    :   '(' abstractDeclarator ')' gccDeclaratorExtension*
     |   '[' typeQualifierList? assignmentExpression? ']'
     |   '[' 'static' typeQualifierList? assignmentExpression ']'
     |   '[' typeQualifierList 'static' assignmentExpression ']'
@@ -596,13 +504,13 @@ iterationStatement
 //    |   For '(' declaration  expression? ';' expression? ')' statement
 
 forCondition
-    :   forDeclaration ';' forExpression? ';' forExpression?
-    |   expression? ';' forExpression? ';' forExpression?
-    ;
+	:   forDeclaration ';' forExpression? ';' forExpression?
+	|   expression? ';' forExpression? ';' forExpression?
+	;
 
 forDeclaration
     :   declarationSpecifiers initDeclaratorList
-    |   declarationSpecifiers
+	| 	declarationSpecifiers
     ;
 
 forExpression
@@ -640,7 +548,7 @@ functionDefinition
 declarationList
     :   declaration
     |   declarationList declaration
-    ;
+;
 
 Auto : 'auto';
 Break : 'break';
@@ -650,11 +558,9 @@ Const : 'const';
 Continue : 'continue';
 Default : 'default';
 Do : 'do';
-//Double : 'double';
 Else : 'else';
 Enum : 'enum';
 Extern : 'extern';
-//Float : 'float';
 For : 'for';
 Goto : 'goto';
 If : 'if';
@@ -736,12 +642,12 @@ AndAssign : '&=';
 XorAssign : '^=';
 OrAssign : '|=';
 
-Equal : '==';
-NotEqual : '!=';
+EqualEqual : '==';
+Notequal : '!=';
 
 //Arrow : '->';
-Dot : '.';
-Ellipsis : '...';
+DOT : '.';
+ELLIPSES : '...';
 
 Identifier
     :   IdentifierNondigit
@@ -847,16 +753,16 @@ UnsignedSuffix
 //    :   [lL]
 //    ;
 
-//fragment
-//LongLongSuffix
-//    :   'll' | 'LL'
-//    ;
+fragment
+LongLongSuffix
+    :   'll' | 'LL'
+    ;
 
-//fragment
-//FloatingConstant
-//    :   DecimalFloatingConstant
-//    |   HexadecimalFloatingConstant
-//    ;
+fragment
+FloatingConstant
+    :   DecimalFloatingConstant
+    |   HexadecimalFloatingConstant
+    ;
 
 fragment
 DecimalFloatingConstant

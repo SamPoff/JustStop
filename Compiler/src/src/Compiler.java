@@ -4,6 +4,8 @@ package src;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.antlr.v4.Tool;
 import org.antlr.v4.runtime.*;
@@ -33,7 +35,8 @@ public class Compiler {
 			CParser.CompilationUnitContext tree = parser.compilationUnit(  );
 			
 			MyListener extractor = new MyListener(  );
-			ParseTreeWalker.DEFAULT.walk( extractor, tree ); 
+			System.out.println("\n");
+			ParseTreeWalker.DEFAULT.walk( extractor, tree );
 					
 			
 		} catch (IOException e) {
