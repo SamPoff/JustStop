@@ -18,6 +18,7 @@ public class Compiler {
 
 		File file = new File("/Users/sp31485/git/anotherone/Compiler/lib/test.c");
 		FileInputStream fis = null;
+		Map<String, String> keys = new HashMap<String, String>();
 
 		try {
 
@@ -34,7 +35,7 @@ public class Compiler {
 			CParser parser = new CParser( tokens );
 			CParser.CompilationUnitContext tree = parser.compilationUnit(  );
 			
-			MyListener extractor = new MyListener(  );
+			MyListener extractor = new MyListener( );
 			System.out.println("\n");
 			ParseTreeWalker.DEFAULT.walk( extractor, tree );
 					

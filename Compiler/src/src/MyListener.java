@@ -103,10 +103,12 @@ import src.CParser.TypedefNameContext;
 import src.CParser.UnaryExpressionContext;
 import src.CParser.UnaryOperatorContext;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class MyListener implements CListener {
 	
-//	public MyListener( Map<String, Integer> usedVals2 )  {
-//		usedVals = usedVals2;
+//	public MyListener( Map<String, String> usedVals2 )  {
+//		keys = usedVals2;
 //	}
 	
 	String[] R = { "R0", "R1", "R2",  "R3",  "R4",  "R5",  "R6",  "R7", 
@@ -115,7 +117,8 @@ public class MyListener implements CListener {
 	boolean[] RInUse = { false, false, false, false, false, false, false, false, 
 			             false, false, false, false, false, false, false, false }; 
 
-	Queue<String> keys = new LinkedList<String>();
+	Queue<String> varName = new LinkedList<String>();
+	Queue<String> varVal  = new LinkedList<String>();
 	
 	@Override
 	public void enterEveryRule(ParserRuleContext arg0) {
@@ -436,151 +439,36 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterDeclaration(DeclarationContext ctx) throws Exception {
-		
-		System.out.println( "\nStarting new line\n" );
 
 		// Returns the name given to the variable in the original
 		// code.
 		String var = ctx.getChild( 1 ).getText().split( "=" )[ 0 ];
-//		System.out.println( "var = " + var );
 		// Returns an uppercase version of that variable name.
 		String varUp = var.toUpperCase();
-//		System.out.println( "varUp = " + varUp );
 		// Returns just the value part (right side of '=' sign).
 		String val = ctx.getChild( 1 ).getText().split( "=" )[ 1 ];
-//		System.out.println( "val = " + val );
 
-		// Tries to convert values from string to int. If that
-		// can't be done because it's referencing another variable
-		// then it replaces it with the value of that variable. 
-		List<String> arrayVersion = new ArrayList<String>();
-		int numberOfDependencies = keys.size();
-		String depArray[] = new String[ numberOfDependencies ];
+		// Will replace variable names with the values they have
+		// already been assigned;
+		String[] vars = new String[ varName.size() ];
+		String[] vals = new String[ varVal.size()  ];
 		int index = 0;
-		for( String s : keys ) {
-			depArray[ index ] = s;
+		for( String s : varName ) {
+			vars[ index ] = s;
 			index++;
 		}
-		int depStartIndex[] = new int[ numberOfDependencies ];
-		int depEndIndex[]   = new int[ numberOfDependencies ];
-		// Find start and end points of each dependency. 
-		for( int i = 0; i < numberOfDependencies; i++ ) {
-			
+		index = 0;
+		for( String s : varVal ) {
+			vals[ index ] = s;
+			index++;
 		}
-		
-		// TODO: Make an array that has all the correct variables, swap
-		// values for the dependencies, then take care of order of operations.
-		int h = 0;
-		for( int i = 0; i < val.length() - variableName.length() ; i++ ) {
-			int j = i + variableName.length() ; 
-            if( val.substring( i, j ).equals( variableName ) ) {
-            	arrayVersion.add( val.substring(i, j) );
-            	i += j - 1;
-            	j += j - i;
-            }
-            else {
-            	arrayVersion.add( val.substring( i, i + 1 ) );
-            	j++;
-            }
-            h++;
-		}System.out.println("h = " + h);
+		val = StringUtils.replaceEach( val,  vars,  vals );
 
-		System.out.println("\n");
-		for( String s : arrayVersion ) System.out.println("Array " + s );
-		
-		
-//		int i = 0;
-//		// Make char array of values.
-//		char[] charVersion = val.toCharArray();
-//		val = "";
-//		// For each char in the array see if it is a key
-//		// for the dictionary declared at the beginning of
-//		// the class. If it is, replace the key with the
-//		// value. 
-//		for( char c : charVersion ) {
-//			if( usedVals.get( String.valueOf( c ) ) != null ) {
-//				charVersion[i] = usedVals.get( String.valueOf( c ) )
-//						.toString()
-//						.charAt(0);
-//			}
-//			val += String.valueOf( charVersion[i] );
-//			i++;
-//		}
-//		// TODO: What about if referencing a variable that hasn't
-//		// been initialized yet. Will also break if variable name 
-//		// has number in it. Also order of operations.
-//		String splitted [] = val.split( "[*/+-]" );
-//		int amountOfOperands = splitted.length;
-//
-//		String splittedA[] = val.split( "[*]" );
-//		String splittedB[] = val.split( "[/]" );
-//		String splittedC[] = val.split( "[+]" );
-//		String splittedD[] = val.split( "[-]" );
-//		System.out.println();
-//		for( String s : splitted  ) System.out.println( s );
-//		System.out.println();
-//		for( String s : splittedA ) System.out.println( s );
-//		System.out.println();
-//		for( String s : splittedB ) System.out.println( s );
-//		System.out.println();
-//		for( String s : splittedC ) System.out.println( s );
-//		System.out.println();
-//		for( String s : splittedD ) System.out.println( s );
-//		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		int valInt = 0;
-//		try {
-//			valInt = Integer.parseInt( val );
-//		} catch( NumberFormatException e ) {
-//			int i = 0;
-//			// Make char array of values.
-//			char[] charVersion = val.toCharArray();
-//			val = "";
-//			// For each char in the array see if it is a key
-//			// for the dictionary declared at the beginning of
-//			// the class. If it is, replace the key with the
-//			// value. 
-//			for( char c : charVersion ) {
-//				if( usedVals.get( String.valueOf( c ) ) != null ) {
-//					charVersion[i] = usedVals.get( String.valueOf( c ) )
-//							.toString()
-//							.charAt(0);
-//				}
-//				val += String.valueOf( charVersion[i] );
-//				i++;
-//			}
-//			// TODO: What about if referencing a variable that hasn't
-//			// been initialized yet. Will also break if variable name 
-//			// has number in it. Also order of operations.
-//			String splitted [] = val.split( "[*/+-]" );
-//			int amountOfOperands = splitted.length;
-//
-//			String splittedA[] = val.split( "[*]" );
-//			String splittedB[] = val.split( "[/]" );
-//			String splittedC[] = val.split( "[+]" );
-//			String splittedD[] = val.split( "[-]" );
-//			System.out.println();
-//			for( String s : splitted  ) System.out.println( s );
-//			System.out.println();
-//			for( String s : splittedA ) System.out.println( s );
-//			System.out.println();
-//			for( String s : splittedB ) System.out.println( s );
-//			System.out.println();
-//			for( String s : splittedC ) System.out.println( s );
-//			System.out.println();
-//			for( String s : splittedD ) System.out.println( s );
-//		}
-		
-		
+		// Does any calculations and rounds to int. Doubles
+		// are assumed to be unsupported.
+		double asDouble = eval( val );
+		val = Integer.toString( ( int ) Math.round( asDouble ) );
+
 		// Returns variable value in hex.
 		String valHex = Integer.toHexString( Integer.valueOf( val ) );
 		// Format hex string.
@@ -589,13 +477,96 @@ public class MyListener implements CListener {
 		try {
 			if( length > 4 ) throw new Exception();
 			System.out.println( varUp + " EQU " + valHexFormat );
-			keys.add( var );
-//			System.out.println("Dict contains: key -> " + var + " val -> " + val );
+			varName.add( var );
+			varVal.add( val );
 		} catch( Exception e ) {
 			System.out.println( "Values must be <= 16 bits." );
 		}
 		System.out.println();
 
+	}
+	
+	// Credit for this mess of amazing goes to stackoverflow.
+	public static double eval(final String str) {
+		
+	    return new Object() {
+	    	
+	        int pos = -1, ch;
+
+	        void nextChar() {
+	            ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+	        }
+
+	        boolean eat(int charToEat) {
+	            while (ch == ' ') nextChar();
+	            if (ch == charToEat) {
+	                nextChar();
+	                return true;
+	            }
+	            return false;
+	        }
+
+	        double parse() {
+	            nextChar();
+	            double x = parseExpression();
+	            if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
+	            return x;
+	        }
+
+	        // Grammar:
+	        // expression = term | expression `+` term | expression `-` term
+	        // term = factor | term `*` factor | term `/` factor
+	        // factor = `+` factor | `-` factor | `(` expression `)`
+	        //        | number | functionName factor | factor `^` factor
+
+	        double parseExpression() {
+	            double x = parseTerm();
+	            for (;;) {
+	                if      (eat('+')) x += parseTerm(); // addition
+	                else if (eat('-')) x -= parseTerm(); // subtraction
+	                else return x;
+	            }
+	        }
+
+	        double parseTerm() {
+	            double x = parseFactor();
+	            for (;;) {
+	                if      (eat('*')) x *= parseFactor(); // multiplication
+	                else if (eat('/')) x /= parseFactor(); // division
+	                else return x;
+	            }
+	        }
+
+	        double parseFactor() {
+	            if (eat('+')) return parseFactor(); // unary plus
+	            if (eat('-')) return -parseFactor(); // unary minus
+
+	            double x;
+	            int startPos = this.pos;
+	            if (eat('(')) { // parentheses
+	                x = parseExpression();
+	                eat(')');
+	            } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+	                while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+	                x = Double.parseDouble(str.substring(startPos, this.pos));
+	            } else if (ch >= 'a' && ch <= 'z') { // functions
+	                while (ch >= 'a' && ch <= 'z') nextChar();
+	                String func = str.substring(startPos, this.pos);
+	                x = parseFactor();
+	                if (func.equals("sqrt")) x = Math.sqrt(x);
+	                else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
+	                else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
+	                else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
+	                else throw new RuntimeException("Unknown function: " + func);
+	            } else {
+	                throw new RuntimeException("Unexpected: " + (char)ch);
+	            }
+
+	            if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
+
+	            return x;
+	        }
+	    }.parse();
 	}
 	
 	@Override

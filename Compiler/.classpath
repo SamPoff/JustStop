@@ -17,5 +17,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/sp31485/git/anotherone/Compiler/lib/antlr-4.5.3-complete.jar"/>
+	<classpathentry kind="lib" path="/Users/sp31485/git/anotherone/Compiler/lib/commons-lang3-3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
