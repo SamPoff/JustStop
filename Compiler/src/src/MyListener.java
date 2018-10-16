@@ -122,7 +122,7 @@ public class MyListener implements CListener {
 	
 	@Override
 	public void enterEveryRule(ParserRuleContext arg0) {
-		// TODO Auto-generated method stub
+//		System.out.println( "enterEveryRule" );
 		
 	}
 
@@ -134,13 +134,13 @@ public class MyListener implements CListener {
 
 	@Override
 	public void visitErrorNode(ErrorNode arg0) {
-		// TODO Auto-generated method stub
+		System.out.println( "visitErrorNode" );
 		
 	}
 
 	@Override
 	public void visitTerminal(TerminalNode arg0) {
-		// TODO Auto-generated method stub
+//		System.out.println( "visitTerminal" );
 		
 	}
 
@@ -148,7 +148,7 @@ public class MyListener implements CListener {
 	// Variable name in an expression.
 	@Override
 	public void enterPrimaryExpression(PrimaryExpressionContext ctx) {
-//		System.out.print( ctx.getText() + " " );
+		System.out.print("enterPrimaryExpression");
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterGenericSelection(GenericSelectionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enterGenericSelection");
 		
 	}
 
@@ -172,7 +172,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterGenericAssocList(GenericAssocListContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enterGenericAssocList");
 		
 	}
 
@@ -184,7 +184,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterGenericAssociation(GenericAssociationContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -196,7 +196,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterPostfixExpression(PostfixExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -208,7 +208,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterArgumentExpressionList(ArgumentExpressionListContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -220,7 +220,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterUnaryExpression(UnaryExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -232,7 +232,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterUnaryOperator(UnaryOperatorContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -244,7 +244,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterCastExpression(CastExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -256,7 +256,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterMultiplicativeExpression(MultiplicativeExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -268,7 +268,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterAdditiveExpression(AdditiveExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -280,7 +280,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterShiftExpression(ShiftExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -292,7 +292,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterRelationalExpression(RelationalExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -310,13 +310,13 @@ public class MyListener implements CListener {
 
 	@Override
 	public void exitEqualityExpression(EqualityExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
 	@Override
 	public void enterAndExpression(AndExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -328,7 +328,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterExclusiveOrExpression(ExclusiveOrExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("");
 		
 	}
 
@@ -446,7 +446,13 @@ public class MyListener implements CListener {
 		// Returns an uppercase version of that variable name.
 		String varUp = var.toUpperCase();
 		// Returns just the value part (right side of '=' sign).
-		String val = ctx.getChild( 1 ).getText().split( "=" )[ 1 ];
+		// If value isn't assigned yet just init to zero.
+		String val = "";
+		try {
+			val = ctx.getChild( 1 ).getText().split( "=" )[ 1 ];
+		} catch( ArrayIndexOutOfBoundsException e ) {
+			val = "0000";
+		}
 
 		// Will replace variable names with the values they have
 		// already been assigned;
@@ -482,7 +488,6 @@ public class MyListener implements CListener {
 		} catch( Exception e ) {
 			System.out.println( "Values must be <= 16 bits." );
 		}
-		System.out.println();
 
 	}
 	
@@ -818,7 +823,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterFunctionSpecifier(FunctionSpecifierContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter function specifier");
 		
 	}
 
@@ -914,7 +919,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterNestedParenthesesBlock(NestedParenthesesBlockContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter nested parentheses block");
 		
 	}
 
@@ -1118,7 +1123,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterStatement(StatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter statement");
 		
 	}
 
@@ -1142,7 +1147,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterCompoundStatement(CompoundStatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter compound statement");
 		
 	}
 
@@ -1178,7 +1183,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterExpressionStatement(ExpressionStatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter expression statement");
 		
 	}
 
@@ -1190,7 +1195,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterSelectionStatement(SelectionStatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter selection statement");
 		
 	}
 
@@ -1202,7 +1207,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterIterationStatement(IterationStatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter iteration statement");
 		
 	}
 
@@ -1214,7 +1219,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterForCondition(ForConditionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter for condition");
 		
 	}
 
@@ -1226,7 +1231,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterForDeclaration(ForDeclarationContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter for declaration");
 		
 	}
 
@@ -1238,7 +1243,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterForExpression(ForExpressionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter for expression");
 		
 	}
 
@@ -1250,7 +1255,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterJumpStatement(JumpStatementContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter jump statement");
 		
 	}
 
@@ -1298,7 +1303,7 @@ public class MyListener implements CListener {
 
 	@Override
 	public void enterFunctionDefinition(FunctionDefinitionContext ctx) {
-		// TODO Auto-generated method stub
+		System.out.print("enter function definition");
 		
 	}
 
